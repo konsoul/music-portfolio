@@ -2,24 +2,26 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>Poop</div>
-      <h1>My Music Portfolio</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+    <div className="container">
+      <div className="window">
+        <div className="title">Music Portfolio</div>
+        <div className="content">
+          <div className="info">
+            <div>Song:Zone Zone Zone</div>
+            <div>Genre: Electronic</div>
+          </div>
+          <div className="progress-bar-container">
+            <div className="progress-bar" style={{ width: '80%' }} />{' '}
+            {/* Static width */}
+          </div>
+        </div>
+        <div className="footer">
+          &lt;Tab&gt;/&lt;Alt-Tab&gt; between elements &nbsp; &lt;Space&gt;
+          selects &nbsp; &lt;F12&gt; next screen
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
