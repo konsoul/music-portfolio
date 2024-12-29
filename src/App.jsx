@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import AudioPlayer from './components/AudioPlayer.jsx' // Updated import path
+import song from './assets/zone.mp3'
 import './App.css'
 
 function App() {
@@ -11,9 +13,8 @@ function App() {
             <div>Song:Zone Zone Zone</div>
             <div>Genre: Electronic</div>
           </div>
-          <div className="progress-bar-container">
-            <div className="progress-bar" style={{ width: '80%' }} />{' '}
-            {/* Static width */}
+          <div>
+            <AudioPlayer src={song} title="Zone Zone Zone" />
           </div>
         </div>
         <div className="footer">
