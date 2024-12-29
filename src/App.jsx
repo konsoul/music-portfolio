@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import AudioPlayer from './components/AudioPlayer.jsx' // Updated import path
+import AudioPlayer from './components/AudioPlayer.jsx'
 import song from './assets/zone.mp3'
 import './App.css'
+import './index.css'
 
 function App() {
   return (
@@ -9,9 +10,11 @@ function App() {
       <div className="window">
         <div className="title">Music Portfolio</div>
         <div className="content">
-          <div className="info">
+          <div className="info mt-6 mb-8">
+            {' '}
+            {/* Added margin top and bottom */}
             <div>Song:Zone Zone Zone</div>
-            <div>Genre: Electronic</div>
+            <div className="space-y-2">Genre: Electronic</div>
           </div>
           <div>
             <AudioPlayer src={song} title="Zone Zone Zone" />
