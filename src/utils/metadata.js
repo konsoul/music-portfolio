@@ -1,6 +1,6 @@
 // src/utils/metadata.js
-import { songData } from './songData' // Add this import at the top
-let uniqueId = 0
+// src/utils/metadata.js
+import { songData } from './songData'
 
 export async function parseMetadata(src) {
   try {
@@ -8,16 +8,21 @@ export async function parseMetadata(src) {
       const audio = new Audio(src)
 
       audio.addEventListener('loadedmetadata', () => {
-        const rawFilename = src.split('/').pop().replace('.mp3', '')
-        const decodedFilename = decodeURIComponent(rawFilename)
+        // Get filename and decode URL encoding first
+        const fullFilename = decodeURIComponent(src.split('/').pop())
 
-        const matchingSong = Object.values(songData).find(
-          (song) => song.filename.replace('.mp3', '') === decodedFilename
-        )
+        // Remove .mp3 and the random suffix (everything after the last hyphen)
+        const baseFilename = fullFilename
+          .replace('.mp3', '')
+          .split('-')[0]
+          .trim()
+
+        // Look up the clean title in our songData
+        const songInfo = songData[baseFilename] || { title: baseFilename }
 
         const metadata = {
-          id: `song-${uniqueId++}`,
-          title: matchingSong ? matchingSong.title : decodedFilename,
+          id: crypto.randomUUID(),
+          title: songInfo.title,
           duration: audio.duration,
           src: src,
         }
