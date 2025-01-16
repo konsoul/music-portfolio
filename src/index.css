@@ -15,6 +15,17 @@ body {
   width: 600px;
 }
 
+.sidebar-window {
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
 .title {
   text-align: center;
   margin-bottom: 10px;

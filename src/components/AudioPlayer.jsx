@@ -47,10 +47,11 @@ const AudioPlayer = ({ src, title }) => {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-center h-[100px]">
+      {' '}
+      {/* Added height and justify-center */}
       <audio ref={audioRef} src={src} preload="metadata" />
-
-      <div className="flex justify-center gap-4 mb-4">
+      <div className="flex justify-center gap-5 mb-6">
         <div className="relative">
           <button
             onClick={togglePlay}
@@ -73,7 +74,6 @@ const AudioPlayer = ({ src, title }) => {
           <div className="absolute inset-1 border border-slate-200 pointer-events-none" />
         </div>
       </div>
-
       <ProgressBar currentTime={currentTime} duration={duration} />
     </div>
   )

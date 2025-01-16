@@ -12,4 +12,10 @@ export const songData = {
   zone: {
     title: 'Zone',
   },
+  'Country Boy Needs the Country': {
+    title: 'Country Boy Needs the Country',
+  },
+  'The House That Wasnt': {
+    title: 'The House That Wasnt',
+  },
 }

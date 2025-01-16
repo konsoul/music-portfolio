@@ -49,28 +49,29 @@ function App() {
   return (
     <Layout>
       <div className="container">
-        <div className="flex">
-          <Sidebar
-            songs={songs}
-            currentSong={currentSong}
-            onSongSelect={handleSongSelect}
-          />
-          {currentSong && (
-            <div className="window shadow-[8px_12px_black]">
-              <div className="title">Music Portfolio</div>
-              <div className="content">
-                <div className="info mt-6 mb-8 text-center">
-                  <div>Song: {currentSong.title}</div>
-                </div>
-                <div>
-                  <AudioPlayer
-                    src={currentSong.src}
-                    title={currentSong.title}
-                  />
+        <div className="flex flex-col items-center">
+          <div className="flex justify-center">
+            <Sidebar
+              songs={songs}
+              currentSong={currentSong}
+              onSongSelect={handleSongSelect}
+            />
+            {currentSong && (
+              <div
+                className="window shadow-[8px_12px_black] text-center flex flex-col justify-center"
+                style={{ width: '450px', height: '200px' }}
+              >
+                <div className="content">
+                  <div>
+                    <AudioPlayer
+                      src={currentSong.src}
+                      title={currentSong.title}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </Layout>
