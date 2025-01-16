@@ -56,7 +56,7 @@ function App() {
             onSongSelect={handleSongSelect}
           />
           {currentSong && (
-            <div className="window">
+            <div className="window shadow-[8px_12px_black]">
               <div className="title">Music Portfolio</div>
               <div className="content">
                 <div className="info mt-6 mb-8 text-center">
