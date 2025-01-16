@@ -14,13 +14,15 @@ const Sidebar = ({ songs, currentSong, onSongSelect }) => {
               key={song.id}
               onClick={() => onSongSelect(song)}
               className={`w-full text-left p-4 hover:bg-[#000080] shadow-[8px_12px_black] transition-colors ${
-                currentSong?.id === song.id ? 'bg-[#aa0000] text-white' : ''
+                currentSong?.id === song.id
+                  ? 'bg-[#aa0000] text-white'
+                  : 'bg-[#c0c0c0] text-black hover:text-white'
               }`}
             >
               <div className="flex items-center justify-between">
                 <span>{song.title}</span>
                 {currentSong?.id === song.id && (
-                  <span className="text-sm"></span>
+                  <span className="text-sm">▶ Playing</span>
                 )}
               </div>
             </button>
