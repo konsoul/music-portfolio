@@ -48,8 +48,11 @@ function App() {
 
   return (
     <Layout>
+      <div className="text-white text-6xl font-bold text-center py-8">
+        {currentSong?.title || 'Select a Song'}
+      </div>
       <div className="container">
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col">
           <div className="flex justify-center">
             <Sidebar
               songs={songs}
@@ -59,7 +62,7 @@ function App() {
             {currentSong && (
               <div
                 className="window shadow-[8px_12px_black] text-center flex flex-col justify-center"
-                style={{ width: '450px', height: '200px' }}
+                style={{ width: '450px', height: '300px' }}
               >
                 <div className="content">
                   <div>
