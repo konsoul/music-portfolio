@@ -3,19 +3,11 @@ import AudioPlayer from './components/AudioPlayer'
 import Layout from './components/ui/Layout'
 import Sidebar from './components/ui/Sidebar'
 import { parseMetadata } from './utils/metadata'
+import zone from './assets/zone.mp3'
 import './App.css'
 import './index.css'
 
-// Import your MP3 files
-import zone from './assets/zone.mp3'
-
-// Create initial song list
-const songList = [
-  {
-    src: zone,
-    filename: 'zone.mp3',
-  },
-]
+const songFiles = [{ src: zone }]
 
 function App() {
   const [songs, setSongs] = useState([])
@@ -26,13 +18,10 @@ function App() {
     async function loadSongs() {
       try {
         const loadedSongs = await Promise.all(
-          songList.map(async (song) => {
-            const metadata = await parseMetadata(null, song.src)
-            return metadata
-          })
+          songFiles.map((song) => parseMetadata(song.src))
         )
 
-        const validSongs = loadedSongs.filter((song) => song !== null)
+        const validSongs = loadedSongs.filter(Boolean)
         setSongs(validSongs)
         setCurrentSong(validSongs[0])
       } catch (error) {
@@ -64,15 +53,10 @@ function App() {
           />
           {currentSong && (
             <div className="window">
-              <div className="title text-2xl">Music Portfolio</div>
+              <div className="title">Music Portfolio</div>
               <div className="content">
                 <div className="info mt-6 mb-8 text-center">
-                  <div className="text-xl">Song: {currentSong.title}</div>
-                  <div className="space-y-2 mt-2">
-                    <div>
-                      Duration: {Math.floor(currentSong.duration)} seconds
-                    </div>
-                  </div>
+                  <div>Song: {currentSong.title}</div>
                 </div>
                 <div>
                   <AudioPlayer

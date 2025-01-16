@@ -1,15 +1,14 @@
 // utils/metadata.js
 
-export async function parseMetadata(audioFile, src) {
+export async function parseMetadata(src) {
   try {
     return new Promise((resolve) => {
       const audio = new Audio(src)
 
       audio.addEventListener('loadedmetadata', () => {
-        // Create metadata object with available information
         const metadata = {
           id: Date.now(),
-          title: src.split('/').pop().replace('.mp3', ''), // Gets filename without extension
+          title: src.split('/').pop().replace('.mp3', ''),
           duration: audio.duration,
           src: src,
         }
