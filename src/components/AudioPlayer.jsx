@@ -59,7 +59,7 @@ const AudioPlayer = ({ src, title }) => {
           >
             {isPlaying ? 'Pause' : 'Play'}
           </button>
-          <div className="absolute inset-1 border border-white pointer-events-none" />
+          <div className="absolute inset-1 border border-slate-200 pointer-events-none" />
         </div>
 
         <div className="relative">
@@ -70,7 +70,7 @@ const AudioPlayer = ({ src, title }) => {
           >
             Restart
           </button>
-          <div className="absolute inset-1 border border-white pointer-events-none" />
+          <div className="absolute inset-1 border border-slate-200 pointer-events-none" />
         </div>
       </div>
 

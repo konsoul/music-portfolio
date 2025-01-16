@@ -1,89 +1,92 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import AudioPlayer from './components/AudioPlayer'
-import song from './assets/zone.mp3'
-import './App.css'
-import './index.css'
 import Layout from './components/ui/Layout'
 import Sidebar from './components/ui/Sidebar'
+import { parseMetadata } from './utils/metadata'
+import './App.css'
+import './index.css'
 
-// Example song list - replace src with actual song files
+// Import your MP3 files
+import zone from './assets/zone.mp3'
+
+// Create initial song list
 const songList = [
   {
-    id: 1,
-    title: 'Zone Zone Zone',
-    src: song,
-    genre: 'Electronic',
-  },
-  {
-    id: 2,
-    title: 'Circuit Breaker',
-    src: song, // Replace with actual song
-    genre: 'Electronic',
-  },
-  {
-    id: 3,
-    title: 'Digital Dreams',
-    src: song, // Replace with actual song
-    genre: 'Ambient',
-  },
-  {
-    id: 4,
-    title: 'Synthwave Sunset',
-    src: song, // Replace with actual song
-    genre: 'Synthwave',
+    src: zone,
+    filename: 'zone.mp3',
   },
 ]
 
 function App() {
-  const [currentSong, setCurrentSong] = useState(songList[0])
+  const [songs, setSongs] = useState([])
+  const [currentSong, setCurrentSong] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadSongs() {
+      try {
+        const loadedSongs = await Promise.all(
+          songList.map(async (song) => {
+            const metadata = await parseMetadata(null, song.src)
+            return metadata
+          })
+        )
+
+        const validSongs = loadedSongs.filter((song) => song !== null)
+        setSongs(validSongs)
+        setCurrentSong(validSongs[0])
+      } catch (error) {
+        console.error('Error loading songs:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadSongs()
+  }, [])
 
   const handleSongSelect = (song) => {
     setCurrentSong(song)
   }
 
-  // Handle keyboard navigation
-  const handleKeyPress = (e) => {
-    const currentIndex = songList.findIndex(
-      (song) => song.id === currentSong.id
-    )
-
-    if (e.key === 'ArrowDown' || e.key === 'Tab') {
-      e.preventDefault()
-      const nextIndex = (currentIndex + 1) % songList.length
-      setCurrentSong(songList[nextIndex])
-    } else if (e.key === 'ArrowUp' || (e.key === 'Tab' && e.shiftKey)) {
-      e.preventDefault()
-      const prevIndex =
-        currentIndex === 0 ? songList.length - 1 : currentIndex - 1
-      setCurrentSong(songList[prevIndex])
-    }
+  if (isLoading) {
+    return <div className="text-center p-4">Loading songs...</div>
   }
 
   return (
     <Layout>
-      <div className="container" onKeyDown={handleKeyPress}>
+      <div className="container">
         <div className="flex">
           <Sidebar
-            songs={songList}
+            songs={songs}
             currentSong={currentSong}
             onSongSelect={handleSongSelect}
           />
-          <div className="window">
-            <div className="title">Music Portfolio</div>
-            <div className="content">
-              <div className="info mt-6 mb-8 text-center">
-                <div>Song:{currentSong.title}</div>
-                <div className="space-y-2">Genre: {currentSong.genre}</div>
+          {currentSong && (
+            <div className="window">
+              <div className="title text-2xl">Music Portfolio</div>
+              <div className="content">
+                <div className="info mt-6 mb-8 text-center">
+                  <div className="text-xl">Song: {currentSong.title}</div>
+                  <div className="space-y-2 mt-2">
+                    <div>
+                      Duration: {Math.floor(currentSong.duration)} seconds
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <AudioPlayer
+                    src={currentSong.src}
+                    title={currentSong.title}
+                  />
+                </div>
               </div>
-              <div>
-                <AudioPlayer src={currentSong.src} title={currentSong.title} />
+              <div className="footer">
+                &lt;Tab&gt;/&lt;Alt-Tab&gt; change songs &nbsp; &lt;Space&gt;
+                pause
               </div>
             </div>
-            <div className="footer">
-              &lt;Tab&gt;/&lt;Alt-Tab&gt; change songs &nbsp; &lt;Space&gt;
-              pause
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </Layout>
