@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
-import '../index.css'
 
-function AudioPlayer({ src, title }) {
+const AudioPlayer = ({ src, title }) => {
   const audioRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
 
@@ -16,45 +15,31 @@ function AudioPlayer({ src, title }) {
   }
 
   const restart = () => {
-    if (audioRef.current.paused) {
-      audioRef.current.currentTime = 0
+    audioRef.current.currentTime = 0
+    if (!audioRef.current.paused) {
+      audioRef.current.play()
     }
   }
 
   return (
-    <>
+    <div className="flex justify-center gap-4">
       <audio ref={audioRef} src={src} preload="metadata" />
       <button
         onClick={togglePlay}
-        className="player-button"
-        style={{
-          background: '#aa0000',
-          boxShadow: '8px 12px black',
-          padding: '6px 20px',
-          minWidth: '100px',
-          height: '50px',
-          cursor: 'pointer',
-        }}
+        className="bg-[#aa0000] shadow-[8px_12px_black] px-5 py-1.5 min-w-[100px] h-[50px] cursor-pointer text-gray-300"
+        aria-label={isPlaying ? 'Pause' : 'Play'}
       >
         {isPlaying ? 'Pause' : 'Play'}
       </button>
 
       <button
         onClick={restart}
-        className="player-button"
-        style={{
-          background: '#aa0000',
-          boxShadow: '8px 12px black',
-          padding: '6px 20px',
-          margin: '10px 5px 10px 15px ',
-          minWidth: '100px',
-          height: '50px',
-          cursor: 'pointer',
-        }}
+        className="bg-[#aa0000] shadow-[8px_12px_black] px-5 py-1.5 min-w-[100px] h-[50px] cursor-pointer text-gray-300"
+        aria-label="Restart audio"
       >
         Restart
       </button>
-    </>
+    </div>
   )
 }
 
