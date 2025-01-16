@@ -1,0 +1,19 @@
+App.css
+App.jsx
+assets/
+  A Week.mp3
+  Back Home Again Cover.mp3
+  God Rest Ye Merry Gentlemen.mp3
+  Zone.mp3
+  react.svg
+components/
+  AudioPlayer.jsx
+  ProgressBar.jsx
+  ui/
+    Layout.jsx
+    Sidebar.jsx
+index.css
+main.jsx
+utils/
+  metadata.js
+  songData.js
