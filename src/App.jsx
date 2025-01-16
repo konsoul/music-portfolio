@@ -3,11 +3,11 @@ import AudioPlayer from './components/AudioPlayer'
 import Layout from './components/ui/Layout'
 import Sidebar from './components/ui/Sidebar'
 import { parseMetadata } from './utils/metadata'
-import zone from './assets/zone.mp3'
 import './App.css'
 import './index.css'
 
-const songFiles = [{ src: zone }]
+// This will automatically import all MP3 files from the assets folder
+const audioFiles = import.meta.glob('./assets/*.mp3')
 
 function App() {
   const [songs, setSongs] = useState([])
@@ -17,11 +17,15 @@ function App() {
   useEffect(() => {
     async function loadSongs() {
       try {
-        const loadedSongs = await Promise.all(
-          songFiles.map((song) => parseMetadata(song.src))
+        // Load all audio files
+        const importedSongs = await Promise.all(
+          Object.entries(audioFiles).map(async ([path, importFn]) => {
+            const src = await importFn()
+            return parseMetadata(src.default)
+          })
         )
 
-        const validSongs = loadedSongs.filter(Boolean)
+        const validSongs = importedSongs.filter(Boolean)
         setSongs(validSongs)
         setCurrentSong(validSongs[0])
       } catch (error) {
@@ -64,10 +68,6 @@ function App() {
                     title={currentSong.title}
                   />
                 </div>
-              </div>
-              <div className="footer">
-                &lt;Tab&gt;/&lt;Alt-Tab&gt; change songs &nbsp; &lt;Space&gt;
-                pause
               </div>
             </div>
           )}

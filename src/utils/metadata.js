@@ -6,9 +6,13 @@ export async function parseMetadata(src) {
       const audio = new Audio(src)
 
       audio.addEventListener('loadedmetadata', () => {
+        // Decode the URL and replace any remaining encoding with spaces
+        const decodedFilename = decodeURIComponent(src.split('/').pop())
+        const title = decodedFilename.replace('.mp3', '')
+
         const metadata = {
           id: Date.now(),
-          title: src.split('/').pop().replace('.mp3', ''),
+          title: title,
           duration: audio.duration,
           src: src,
         }
