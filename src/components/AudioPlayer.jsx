@@ -1,7 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
 import ProgressBar from './ProgressBar'
 
-const AudioPlayer = ({ src, title }) => {
+const AudioPlayer = forwardRef(({ src, title }, ref) => {
   const audioRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -38,6 +44,8 @@ const AudioPlayer = ({ src, title }) => {
       setIsPlaying(false)
     }
   }
+
+  useImperativeHandle(ref, () => ({ togglePlay }))
 
   const restart = () => {
     audioRef.current.currentTime = 0
@@ -79,6 +87,6 @@ const AudioPlayer = ({ src, title }) => {
       </div>
     </div>
   )
-}
+})
 
 export default AudioPlayer

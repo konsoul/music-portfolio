@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import AudioPlayer from './components/AudioPlayer'
 import Layout from './components/ui/Layout'
@@ -13,6 +13,8 @@ function App() {
   const [songs, setSongs] = useState([])
   const [currentSong, setCurrentSong] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+
+  const audioPlayerRef = useRef(null)
 
   useEffect(() => {
     async function loadSongs() {
@@ -37,6 +39,21 @@ function App() {
 
     loadSongs()
   }, [])
+
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault()
+        if (currentSong) {
+          audioPlayerRef.current?.togglePlay()
+        }
+      }
+    }
+    document.addEventListener('keydown', handleKeyPress)
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [currentSong])
 
   const handleSongSelect = (song) => {
     setCurrentSong(song)
@@ -68,6 +85,7 @@ function App() {
 
                 <div className="rh-window-content flex flex-col justify-center">
                   <AudioPlayer
+                    ref={audioPlayerRef}
                     src={currentSong.src}
                     title={currentSong.title}
                   />

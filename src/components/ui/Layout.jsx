@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+
 
 const Layout = ({ children }) => {
+  const [audioPlayerRef, setAudioPlayerRef] = useState(null)
+
+  const togglePlayFromKeyboard = () => {
+    if (audioPlayerRef && audioPlayerRef.togglePlay) {
+      audioPlayerRef.togglePlay()
+    }
+  }
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0000AA' }}>
       {/* Red Hat style header */}
@@ -18,8 +27,7 @@ const Layout = ({ children }) => {
 
       {/* Red Hat style footer navigation */}
       <div className="rh-footer">
-        &lt;Tab&gt;/&lt;Alt-Tab&gt; between elements | &lt;Space&gt; selects |
-        &lt;F12&gt; next screen
+        &lt;Space&gt; play/pause | &lt;Enter&gt; choose | &lt;Tab&gt; select
       </div>
     </div>
   )
