@@ -4,10 +4,9 @@ import AudioPlayer from './components/AudioPlayer'
 import Layout from './components/ui/Layout'
 import Sidebar from './components/ui/Sidebar'
 import './index.css'
-import { parseMetadata } from './utils/metadata'
 
 // This will automatically import all MP3 files from the assets folder
-const audioFiles = import.meta.glob('./assets/*.mp3')
+import { getAllSongs } from './utils/firebaseMusic'
 
 function App() {
   const [songs, setSongs] = useState([])
@@ -19,24 +18,15 @@ function App() {
   useEffect(() => {
     async function loadSongs() {
       try {
-        // Load all audio files
-        const importedSongs = await Promise.all(
-          Object.entries(audioFiles).map(async ([path, importFn]) => {
-            const src = await importFn()
-            return parseMetadata(src.default)
-          })
-        )
-
-        const validSongs = importedSongs.filter(Boolean)
-        setSongs(validSongs)
-        setCurrentSong(validSongs[0])
+        const firebaseSongs = await getAllSongs()
+        setSongs(firebaseSongs)
+        setCurrentSong(firebaseSongs[0])
       } catch (error) {
         console.error('Error loading songs:', error)
       } finally {
         setIsLoading(false)
       }
     }
-
     loadSongs()
   }, [])
 
