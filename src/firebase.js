@@ -2,13 +2,12 @@ import { initializeApp } from 'firebase/app'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBRs2vma05unIUVG0fL5h7wASAJxtK8Ky4',
-  authDomain: 'bradley-music-portfolio.firebaseapp.com',
-  projectId: 'bradley-music-portfolio',
-  storageBucket: 'bradley-music-portfolio.firebasestorage.app',
-  messagingSenderId: '828078961711',
-  appId: '1:828078961711:web:75ef668865ba64071582da',
-  measurementId: 'G-DTHVGWPSDG',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
 // Initialize Firebase
