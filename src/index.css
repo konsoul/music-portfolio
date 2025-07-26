@@ -39,8 +39,11 @@ body {
   padding: 16px;
   flex: 1;
   background-color: #c0c0c0;
-  border: 2px inset #c0c0c0; /* This creates the inset/sunken effect */
-  margin: 2px; /* Small margin from window edge */
+  border-top: 2px solid #808080; /* Dark top border */
+  border-left: 2px solid #808080; /* Dark left border */
+  border-right: 2px solid #dfdfdf; /* Light right border */
+  border-bottom: 2px solid #dfdfdf; /* Light bottom border */
+  margin: 4px; /* Space from window edge */
 }
 
 .rh-button {
