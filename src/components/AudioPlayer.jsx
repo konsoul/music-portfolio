@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ProgressBar from './ProgressBar'
 
 const AudioPlayer = ({ src, title }) => {
@@ -47,12 +47,12 @@ const AudioPlayer = ({ src, title }) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-[100px]">
+    <div className="flex flex-col items-center justify-center h-[200px] px-6">
       {' '}
       {/* Added height and justify-center */}
       <audio ref={audioRef} src={src} preload="metadata" />
-      <div className="flex justify-center gap-5 mb-6">
-        <div className="relative">
+      <div className="flex justify-center gap-5 mb-8">
+        <div className="relative ">
           <button
             onClick={togglePlay}
             className="bg-[#aa0000] shadow-[8px_12px_black] px-5 py-1.5 min-w-[100px] h-[50px] cursor-pointer text-gray-300"
@@ -74,7 +74,9 @@ const AudioPlayer = ({ src, title }) => {
           <div className="absolute inset-1 border border-slate-200 pointer-events-none" />
         </div>
       </div>
-      <ProgressBar currentTime={currentTime} duration={duration} />
+      <div className="w-full max-w-sm">
+        <ProgressBar currentTime={currentTime} duration={duration} />
+      </div>
     </div>
   )
 }

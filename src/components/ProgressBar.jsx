@@ -11,7 +11,7 @@ const ProgressBar = ({ currentTime, duration }) => {
 
   return (
     <div className="w-full mt-4">
-      <div className="progress-bar-container relative h-5 bg-[#000080] rounded">
+      <div className="progress-bar-container relative h-5 bg-[#ebebff] rounded">
         <div
           className="progress-bar absolute top-0 left-0 h-full bg-[#aa0000] transition-all duration-300 ease-linear rounded"
           style={{ width: `${progressPercentage}%` }}

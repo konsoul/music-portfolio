@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import './App.css'
 import AudioPlayer from './components/AudioPlayer'
 import Layout from './components/ui/Layout'
 import Sidebar from './components/ui/Sidebar'
-import { parseMetadata } from './utils/metadata'
-import './App.css'
 import './index.css'
+import { parseMetadata } from './utils/metadata'
 
 // This will automatically import all MP3 files from the assets folder
 const audioFiles = import.meta.glob('./assets/*.mp3')
@@ -61,16 +61,16 @@ function App() {
             />
             {currentSong && (
               <div
-                className="window shadow-[8px_12px_black] text-center flex flex-col justify-center"
-                style={{ width: '450px', height: '300px' }}
+                className="rh-window shadow-[8px_12px_black] text-center flex flex-col justify-center"
+                style={{ width: '450px', height: '350px' }}
               >
-                <div className="content">
-                  <div>
-                    <AudioPlayer
-                      src={currentSong.src}
-                      title={currentSong.title}
-                    />
-                  </div>
+                <div className="rh-title-bar">Now Playing</div>
+
+                <div className="rh-window-content flex flex-col justify-center">
+                  <AudioPlayer
+                    src={currentSong.src}
+                    title={currentSong.title}
+                  />
                 </div>
               </div>
             )}

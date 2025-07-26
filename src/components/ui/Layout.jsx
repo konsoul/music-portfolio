@@ -1,25 +1,26 @@
-import React, { useState } from 'react'
-import { Menu, X } from 'lucide-react'
+import React from 'react'
 
 const Layout = ({ children }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
   return (
-    <div className="min-h-screen bg-[#000080]">
-      {/* Full width black navbar background */}
-      <div className="w-full bg-[#aa0000] shadow-[8px_12px_black] px-5 py-1.5">
-        <div className="absolute inset-1 border border-slate-200 pointer-events-none" />
-        <div className="max-w-5xl mx-auto flex justify-between text-center items-center py-4 px-6">
-          <div className="text-xl font-bold text-white text-center">
-            Bradley Rappa Music
-          </div>
-        </div>
+    <div className="min-h-screen" style={{ backgroundColor: '#0000AA' }}>
+      {/* Red Hat style header */}
+      <div className="w-full text-white px-4 py-2 flex justify-between">
+        <span className="font-bold text-yellow-300">
+          Red Hat Bradley (C) 1996 Bradley Hat Software
+        </span>
+        <span className="font-bold text-yellow-300">Music Player System</span>
       </div>
 
       {/* Main content */}
-      <main className="w-full">
-        <div className="max-w-5xl mx-auto px-6">{children}</div>
+      <main className="w-full flex items-center justify-center min-h-[calc(100vh-120px)]">
+        <div className="max-w-4xl mx-auto px-6">{children}</div>
       </main>
+
+      {/* Red Hat style footer navigation */}
+      <div className="rh-footer">
+        &lt;Tab&gt;/&lt;Alt-Tab&gt; between elements | &lt;Space&gt; selects |
+        &lt;F12&gt; next screen
+      </div>
     </div>
   )
 }
